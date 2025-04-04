@@ -1,13 +1,88 @@
-== _Member Names_
-  + *Mahzabin Chowdhury* (Student ID: 110160080)
-  + *Rajat Yadav* (Student ID: 110163406)
+#align(center)[
+  #text(size: 24pt, weight: "bold")[Aegis Security Analysis: Classical vs. Quantum Computing]
+]
 
-== _Title_: Aegis - A quantum-resistant cryptography framework for digital communication and data across all domains.
-== Abstract:
-Aegis, a comprehensive cryptographic framework designed to shield digital communications and data against the emerging threat of quantum computing. Aegis provides an impenetrable defensive layer for modern information systems vulnerable to quantum-based attacks.
-As quantum computers progress toward breaking RSA, ECC, and other widely-deployed cryptographic standards, Aegis implements a forward-looking approach by integrating NIST-selected post-quantum algorithms—specifically Kyber for key encapsulation and SPHINCS+ for digital signatures. Unlike fragmented implementations focusing on isolated algorithms or specific platforms, Aegis delivers a complete security solution through a modular, layered architecture that spans from core cryptographic primitives to application-level integrations.
-The Aegis framework consists of five interconnected layers: (1) core cryptographic primitives optimized for performance across diverse hardware, (2) cryptographic services providing key management and authentication, (3) protocol integration enabling secure communications, (4) language-specific bindings ensuring cross-platform compatibility, and (5) application interfaces facilitating adoption across web, mobile, IoT, and enterprise environments.
-Performance evaluations demonstrate that Aegis achieves practical efficiency even in resource-constrained environments, with key exchanges completing in under 15ms on modern smartphones and signature verification in under 30ms. Security analysis confirms resistance against both classical and quantum attacks with a minimum 128-bit post-quantum security level.
-Aegis's distinctive contribution lies in its unified approach to quantum resistance, offering organizations a structured migration path without disrupting existing systems. The framework supports hybrid cryptographic schemes during transition periods and maintains backward compatibility while preparing for a quantum-secure future. This work represents a significant advancement in democratizing post-quantum cryptography, making quantum-resistant security accessible and implementable across the digital ecosystem.
+= Security Estimates for Encryption Technologies
 
-*Keywords*: post-quantum cryptography, Kyber, SPHINCS+, cryptographic framework, quantum-resistant encryption, hybrid cryptography, cross-platform security
+#align(center)[
+  #table(
+    columns: (auto, auto, auto),
+    inset: 10pt,
+    align: center,
+    table.header(
+      [*Method*], [*Classical Computer*], [*Quantum Computer*],
+    ),
+    [RSA-2048 (current standard)], [~1 trillion years], [~8 hours with sufficient qubits],
+    [ECC-256 (current standard)], [~10 billion years], [~9 hours with sufficient qubits],
+    [*Kyber-768* (used in Aegis)], [~$2^164$ operations (millions of years)], [~$2^82$ operations (millions of years)],
+    [*SPHINCS+-128f* (used in Aegis)], [~$2^128$ operations (billions of years)], [~$2^64$ operations (thousands of years)],
+  )
+]
+
+= Breaking Aegis Security
+
+== With Classical Computers:
+
+- *Kyber-768*: Would require approximately 2^164 operations, which is far beyond what's achievable with current or projected classical computing technology. Even if every computer on Earth worked together, it would take millions of years.
+
+- *SPHINCS+*: Would require approximately 2^128 operations for a hash function collision, which remains computationally infeasible with classical computers. This is comparable to or stronger than AES-128, which is still considered secure for classical computing.
+
+== With Quantum Computers:
+
+- *Kyber-768*: Security drops to approximately 2^82 operations due to Grover's algorithm, but this still represents thousands of years of computation even with advanced quantum computers.
+
+- *SPHINCS+*: Security level reduces to approximately 2^64 operations, which while significantly lower than its classical security, would still require thousands of years with projected quantum computing power.
+
+= Security Reduction Factors
+
+#align(center)[
+  #table(
+    columns: (auto, auto, auto, auto),
+    inset: 10pt,
+    align: center,
+    table.header(
+      [*Algorithm*], [*Classical Attack*], [*Quantum Attack*], [*Security Reduction*],
+    ),
+    [RSA-2048], [~1 trillion years], [~8 hours], [~$10^15$],
+    [ECC-256], [~10 billion years], [~9 hours], [~$10^14$],
+    [Kyber-768], [millions of years], [millions of years], [~$10^3$],
+    [SPHINCS+-128f], [billions of years], [thousands of years], [~$10^6$],
+  )
+]
+
+= Practical Implications
+
+- *Current cryptographic standards* (RSA, ECC) will be essentially *broken immediately* once sufficiently powerful quantum computers are developed
+  
+- *Aegis's algorithms* (Kyber and SPHINCS+) would still require *thousands to millions of years* to break even with quantum computers
+
+- This makes Aegis suitable for protecting data that requires long-term security, including:
+  - Government classified information
+  - Healthcare records
+  - Financial systems
+  - Critical infrastructure
+  - Long-term digital archives
+
+= Key Size and Performance Trade-offs
+
+#align(center)[
+  #table(
+    columns: (auto, auto, auto, auto),
+    inset: 10pt,
+    align: center,
+    table.header(
+      [*Algorithm*], [*Security Level*], [*Key Size*], [*Speed*],
+    ),
+    [RSA-2048], [112 bits (classical)], [2048 bits], [Fast],
+    [ECC-256], [128 bits (classical)], [256 bits], [Very fast],
+    [Kyber-768], [164 bits (classical) / 82 bits (quantum)], [1184 bytes], [Fast],
+    [SPHINCS+-128f], [128 bits (classical) / 64 bits (quantum)], [32 bytes], [Slower (especially for signing)],
+  )
+]
+
+#align(center)[
+  #text(style: "italic")[
+    The Aegis implementation demonstrates that post-quantum security is achievable with reasonable performance trade-offs
+    and remains secure against both classical and quantum computing attacks for the foreseeable future.
+  ]
+]
